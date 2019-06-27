@@ -12,7 +12,7 @@ $.getJSON("/articles", function (data) {
     );
 
     var card = $('<div class="card-body">').append(
-      $('<h5 class="card-title">' + data[i].title + '</h5><footer class="blockquote-footer"><small class="text-muted">Someone famous in <cite title="Source Title">Source Title</cite></small></footer>')
+      $('<h5 class="card-title">' + data[i].title + '</h5><footer class="blockquote-footer"><small class="text-muted">' + data[i].author + 'in <cite title="Source Title">Source Title</cite></small></footer>')
     )
 
     $(cardImg).append(card)

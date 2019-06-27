@@ -1,5 +1,5 @@
 var express = require("express");
-var exphbs  = require('express-handlebars');
+var exphbs = require('express-handlebars');
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
- 
+
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
@@ -66,6 +66,10 @@ app.get("/scrape", function (req, res) {
         .children("a")
         .children("img")
         .attr("src");
+      result.author = $(this)
+        .children()
+        .children(".byline")
+        .text();
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
