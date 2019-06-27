@@ -13,6 +13,7 @@ var ArticleSchema = new Schema({
     },
     image: String,
     author: String,
+    category: String,
     note: {
         type: Schema.Types.ObjectId,
         ref: "Note"

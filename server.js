@@ -70,6 +70,10 @@ app.get("/scrape", function (req, res) {
         .children()
         .children(".byline")
         .text();
+      result.category = $(this)
+        .children()
+        .children("h4")
+        .text();
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -90,8 +94,18 @@ app.get("/scrape", function (req, res) {
 
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
-  // TODO: Finish the route so it grabs all of the articles
   db.Article.find({})
+    .then(function (dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
+});
+
+// Route for clearing all Articles from the db
+app.get("/clear", function (req, res) {
+  db.Article.remove({})
     .then(function (dbArticle) {
       res.json(dbArticle);
     })

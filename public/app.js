@@ -6,20 +6,35 @@ $.getJSON("/articles", function (data) {
     console.log(data[i].link);
     console.log(data[i].image);
     console.log(data[i].title);
-
-    var cardImg = $('<div class="card">').append(
-      $('<img src="' + data[i].image + '" class = "card-img-top">')
-    );
-
-    var card = $('<div class="card-body">').append(
-      $('<h5 class="card-title">' + data[i].title + '</h5><footer class="blockquote-footer"><small class="text-muted">' + data[i].author + 'in <cite title="Source Title">Source Title</cite></small></footer>')
-    )
-
-    $(cardImg).append(card)
-    $(".card-columns").append(cardImg)
+    var cardImg = $('<div class="card">').append($('<a href="' + data[i].link + '" target="_blank"><img src="' + data[i].image + '" class = "card-img-top"></a>'));
+    var card = $('<div class="card-body">').append($('<h5 class="card-title">' + data[i].title + '</h5><footer class="blockquote-footer"><small class="text-muted">' + data[i].author + ' <cite title="Source Title">' + data[i].category + '</cite></small></footer>'));
+    $(cardImg).append(card);
+    $(".card-columns").append(cardImg);
   }
 });
 
+$(document).on("click", "#scrape", function () {
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  })
+    .then(function (data) {
+      console.log(data);
+      location.reload();
+    })
+})
+
+$(document).on("click", "#clear", function () {
+  $.ajax({
+    method: "GET",
+    url: "/clear"
+  })
+    .then(function (data) {
+      console.log(data);
+      $(".card-columns").empty();
+
+    })
+})
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function () {
