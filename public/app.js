@@ -7,6 +7,8 @@ $(function () {
       console.log(data[i].link);
       console.log(data[i].image);
       console.log(data[i].title);
+      console.log(data[i]._id);
+      
       var cardImg = $('<div class="card">').append($('<a href="' + data[i].link + '" target="_blank"><img src="' + data[i].image + '" class = "card-img-top"></a>'));
       var card = $('<div class="card-body">').append($('<h5 class="card-title">' + data[i].title + '</h5><footer class="blockquote-footer"><small class="text-muted">' + data[i].author + ' <cite title="Source Title">' + data[i].category + '</cite></small><button class="note-button" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal" data-id="' + data[i]._id + '">Notes</button></footer>'));
       $(cardImg).append(card);
@@ -63,7 +65,7 @@ $(function () {
         
         
         // The title of the article
-        $(".card-columns").append('<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">New Note</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><input id="titleinput" name="title" value=""><textarea id="bodyinput" name="body"></textarea></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary savenote" data-id="' + data._id + '">Save changes</button></div></div></div></div>');
+        $(".savenote").attr("data-id", data._id);
         // // An input to enter a new title
         // $("#notes").append("<input id='titleinput' name='title' >");
         // // A textarea to add a new note body
@@ -116,8 +118,8 @@ $(function () {
       });
 
     // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
+    // $("#titleinput").val("");
+    // $("#bodyinput").val("");
   });
 
 });
