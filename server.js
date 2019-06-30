@@ -47,7 +47,7 @@ app.get("/scrape", function (req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
-    // Now, we grab every h2 within an article tag, and do the following:
+    // Now, we grab every div within an article tag, and do the following:
     $("div.latestTsr").each(function (i, element) {
       // Save an empty result object
       var result = {};
@@ -116,10 +116,6 @@ app.get("/clear", function (req, res) {
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function (req, res) {
-  // TODO
-  // ====
-  // Finish the route so it finds one article using the req.params.id,
-
   db.Article.findById(req.params.id)
     // and run the populate method with "note",
     .populate("note")
@@ -134,19 +130,14 @@ app.get("/articles/:id", function (req, res) {
 
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function (req, res) {
-  // TODO
-  // ====
-  // save the new note that gets posted to the Notes collection
   db.Note.create(req.body)
     .then(function (dbNote) {
       // then find an article from the req.params.id
       console.log(dbNote.id);
       return db.Article.findByIdAndUpdate(req.params.id,
+
         // and update it's "note" property with the _id of the new note
-        
         { note: dbNote.id });
-        
-        
     })
     .then(function (dbArticle) {
       // If the User was updated successfully, send it back to the client
