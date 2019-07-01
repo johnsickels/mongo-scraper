@@ -6,7 +6,7 @@ var ArticleSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true
+        index: {unique: true, dropDups: true}
     },
     link: String,
     image: String,
